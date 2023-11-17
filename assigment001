@@ -1,0 +1,144 @@
+#1. Find all pairs of an integer array whose sum is equal to a given number:
+
+def find_pairs(array, target_sum):
+    pairs = []
+    seen_numbers = set()
+
+    for num in array:
+        complement = target_sum - num
+        if complement in seen_numbers:
+            pairs.append((num, complement))
+        seen_numbers.add(num)
+
+    return p
+
+
+#2. Reverse an array in place:
+
+def reverse_array_in_place(arr):
+    start, end = 0, len(arr) - 1
+    while start < end:
+        arr[start], arr[end] = arr[end], arr[start]
+        start += 1
+        end -= 1
+
+#3. Check if two strings are a rotation of each other:
+
+def are_rotations(str1, str2):
+    if len(str1) != len(str2):
+        return False
+    return str1 in (str2 + str2)
+
+    
+    #4. Print the first non-repeated character from a string:
+
+    def first_non_repeated_char(s):
+    char_count = {}
+    for char in s:
+        char_count[char] = char_count.get(char, 0) + 1
+
+    for char in s:
+        if char_count[char] == 1:
+            return char
+    return None
+
+#5. Tower of Hanoi algorithm:
+
+def tower_of_hanoi(n, source, target, auxiliary):
+    if n > 0:
+        tower_of_hanoi(n-1, source, auxiliary, target)
+        print(f"Move disk {n} from {source} to {target}")
+        tower_of_hanoi(n-1, auxiliary, target, source)
+
+# 6. Convert postfix to prefix expression:
+
+def postfix_to_prefix(postfix_expression):
+    stack = []
+    operators = set(['+', '-', '*', '/'])
+
+    for symbol in postfix_expression:
+        if symbol not in operators:
+            stack.append(symbol)
+        else:
+            operand2 = stack.pop()
+            operand1 = stack.pop()
+            expression = symbol + operand1 + operand2
+            stack.append(expression)
+
+    return stack.pop()
+
+# 7. Convert prefix expression to infix expression:
+
+def prefix_to_infix(prefix_expression):
+    stack = []
+    operators = set(['+', '-', '*', '/'])
+
+    for symbol in reversed(prefix_expression):
+        if symbol not in operators:
+            stack.append(symbol)
+        else:
+            operand1 = stack.pop()
+            operand2 = stack.pop()
+            expression = '(' + operand1 + symbol + operand2 + ')'
+            stack.append(expression)
+
+    return stack.pop()
+
+
+#8. Check if all the brackets are closed in a given code snippet:
+
+def are_brackets_closed(code_snippet):
+    stack = []
+    brackets = {'(': ')', '[': ']', '{': '}'}
+
+    for char in code_snippet:
+        if char in brackets.keys():
+            stack.append(char)
+        elif char in brackets.values():
+            if not stack or brackets[stack.pop()] != char:
+                return False
+
+    return not stack
+
+
+
+#9. Reverse a stack:
+def reverse_stack(stack):
+    if not stack:
+        return
+    temp = stack.pop()
+    reverse_stack(stack)
+    insert_at_bottom(stack, temp)
+
+def insert_at_bottom(stack, item):
+    if not stack:
+        stack.append(item)
+        return
+    temp = stack.pop()
+    insert_at_bottom(stack, item)
+    stack.append(temp)
+
+#10. Find the smallest number using a stack:
+
+class MinStack:
+    def __init__(self):
+        self.stack = []
+        self.min_stack = []
+
+    def push(self, item):
+        self.stack.append(item)
+        if not self.min_stack or item <= self.min_stack[-1]:
+            self.min_stack.append(item)
+
+    def pop(self):
+        if not self.stack:
+            return None
+        item = self.stack.pop()
+        if item == self.min_stack[-1]:
+            self.min_stack.pop()
+        return item
+
+    def get_min(self):
+        if not self.min_stack:
+            return None
+        return self.min_stack[-1]
